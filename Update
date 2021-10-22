@@ -1,0 +1,73 @@
+app.put("/UpdateVentas"), (req, res) => {
+    const idVenta = req.body.id;
+    const descripcion = req.body.descripcion;
+    await connection.execute("UPDATE ventas SET descripcion = ? WHERE idVenta = ?", [descripcion, idVenta],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(result)
+            }
+        }
+        )
+}
+
+// O
+app.put("/UpdateVentas"), (req, res) => {
+    const idVenta = req.body.id;
+    const descripcion = req.body.descripcion;
+    db.query("UPDATE ventas SET descripcion = ? WHERE idVenta = ?", [descripcion, idVenta],
+        (err, result) => {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.send(result)
+            }
+        }
+        )
+}
+
+
+
+// Agregar un input a cada valor y un botón
+            
+            const listVentas = responseSales.map((ventas) =>{
+                return(
+            <div>
+            <tr>
+                <th scope="row">{product.Id}</th>
+
+                <td>{venta.Descripcion}</td>
+                <input 
+                type="text" 
+                placeholder = "Ingrese la nueva descripción"
+                onChange={(event) => {
+                    setNuevaDescripcion(event.target.value);
+                    }}
+                />
+                <button onClick = {() => {updateDescription(venta.IDVenta)
+                }}> Actualizar </button>
+
+                <td>{product.Precio}</td>
+                <td>{product.Stock}</td>
+                <td>{product.FechaIngreso}</td>
+                <td>{product.MRollos}</td>
+            </tr>
+            </div>
+            )})
+// Crear nuevos estados para las variables modificadas
+
+const [nuevaDescripcion, setNuevaDescripcion] = useState(""); //Ver si se puede asociar el valor que tenía descripción antes
+
+
+// Crear funcion para actualizar: Utiliza Axios, ver cómo homologar en fetch
+
+const updateDescripcion = (idVenta) => {
+    Axios.put("http://localhost:3001/update-ventas", {descripcion : nuevaDescripcion, idVenta, idVenta}).then((response) => {
+        alert("Actualizado!");
+    })
+}
+
+// Ver cómo actualizar la ventanita inmediatamente
